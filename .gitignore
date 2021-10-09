@@ -1,3 +1,9 @@
+# Personal
+*.mp4
+*.webm
+*.zip
+data_analysis/tmp
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
