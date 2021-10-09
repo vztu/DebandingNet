@@ -15,3 +15,5 @@ $ python3 plot_bband_stats
 
 Excluding one outlier video (../data/Waterloo1K/source04/0372_fps25.mp4) that has extremely large BBAND (source: 3.629773, vp9: 3.496615), we got the stats as follows:
 
+![BBAND stats for Waterloo1K: compressed vs. original](https://github.com/vztu/DebandingNet/blob/main/data_analysis/scatter_plots_bband_stats.png)
+
