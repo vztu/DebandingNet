@@ -70,8 +70,8 @@ plot=sns.jointplot(x=bband_stats_org[~nan_mask], y=bband_stats_vp9[~nan_mask],
 kind='scatter', s=50, color='m', edgecolor="white", linewidth=1)
 ax = plot.ax_joint
 # ax.set_label('Sample')
-ax.set_xlabel(r'BBAND$\downarrow$ (Original video)', fontsize=label_size)
-ax.set_ylabel(r'BBAND$\downarrow$ (VP9 compressed)', fontsize=label_size)
+ax.set_xlabel(r'BBAND (Original video)', fontsize=label_size)
+ax.set_ylabel(r'BBAND (VP9 compressed)', fontsize=label_size)
 plot.ax_marg_x.set_xlim(0, 2.5)
 plot.ax_marg_y.set_ylim(0, 2.5)
 

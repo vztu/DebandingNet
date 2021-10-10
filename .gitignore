@@ -2,6 +2,7 @@
 *.mp4
 *.webm
 *.zip
+*.png
 data_analysis/tmp
 
 # Byte-compiled / optimized / DLL files
