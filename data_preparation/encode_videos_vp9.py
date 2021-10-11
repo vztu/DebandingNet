@@ -14,7 +14,7 @@ RES_DIR = "../data/Waterloo1K_vp9/"
 if not os.path.exists(RES_DIR):
     os.makedirs(RES_DIR)
 
-input_files = sorted(glob.glob(DATA_DIR+"**/*.mp4"))
+input_files = sorted(glob.glob(DATA_DIR+"source05/*.mp4"))
 print(f"found {len(input_files)} files")
 
 
