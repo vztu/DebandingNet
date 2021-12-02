@@ -62,6 +62,7 @@ class Config(object):
         self._C.MODEL = CN()
         self._C.MODEL.MODE = 'global'
         self._C.MODEL.SESSION = 'ps128_bs1'
+        self._C.MODEL.VARIANT = 'unet-32'
 
         self._C.OPTIM = CN()
         self._C.OPTIM.BATCH_SIZE = 1

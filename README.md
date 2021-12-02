@@ -74,3 +74,23 @@ python3 train.py
 ```
 python test.py --input_dir datasets/ --result_dir results/MPRNet_epochs100_100epochs_charfreqloss/ --dataset VP9BandingDataset --weights checkpoints/Debanding/models/MPRNet/model_best.pth 
 ```
+
+## Todos:
+
+[ ] Integrate BBAND and DBI metrics.
+[ ] Implemented BandingEdgeLoss (no need to be same to BBAND). Can refer to Canny.py
+
+
+## Experiment logs
+
+### 11.10
+
+* Trained the `UNet-32` model (1.82M, 19.84GMAC) with 100 epochs.
+
+* Test:
+
+```
+python test.py --input_dir datasets/ --model_file "UNet.py" --model_variant "UNet-32" --result_dir results/UNet32_epochs100_l2loss/ --dataset VP9BandingDataset --weights checkpoints/Debanding/models/UNet/model_best.pth --gpus='0,1' --crop_size=512
+```
+
+* Results: `(PSNR, SSIM) = ()`

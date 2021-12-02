@@ -17,7 +17,6 @@ from torch.utils.data import DataLoader
 import random
 import time
 import numpy as np
-from runpy import run_path
 
 import utils
 from data_RGB import get_training_data, get_validation_data
@@ -47,8 +46,7 @@ train_dir = opt.TRAINING.TRAIN_DIR
 val_dir   = opt.TRAINING.VAL_DIR
 
 ######### Model ###########
-load_file = run_path(session+".py")
-model_restoration = load_file['model'](opt.MODEL.VARIANT)
+model_restoration = MPRNet()
 model_restoration.cuda()
 
 device_ids = [i for i in range(torch.cuda.device_count())]
@@ -85,9 +83,8 @@ if len(device_ids)>1:
     model_restoration = nn.DataParallel(model_restoration, device_ids = device_ids)
 
 ######### Loss ###########
-criterion = torch.nn.L1Loss()
-# criterion_char = losses.CharbonnierLoss()
-# criterion_edge = losses.EdgeLoss()
+criterion_char = losses.CharbonnierLoss()
+criterion_edge = losses.EdgeLoss()
 
 ######### DataLoaders ###########
 train_dataset = get_training_data(train_dir, {'patch_size':opt.TRAINING.TRAIN_PS})
@@ -120,10 +117,9 @@ for epoch in range(start_epoch, opt.OPTIM.NUM_EPOCHS + 1):
         restored = model_restoration(input_)
  
         # Compute loss at each stage
-        loss = criterion(restored, target)
-        # loss_char = np.sum([criterion_char(restored[j],target) for j in range(len(restored))])
-        # loss_edge = np.sum([criterion_edge(restored[j],target) for j in range(len(restored))])
-        # loss = (loss_char) + (0.05*loss_edge)
+        loss_char = np.sum([criterion_char(restored[j],target) for j in range(len(restored))])
+        loss_edge = np.sum([criterion_edge(restored[j],target) for j in range(len(restored))])
+        loss = (loss_char) + (0.05*loss_edge)
        
         loss.backward()
         optimizer.step()

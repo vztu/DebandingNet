@@ -8,7 +8,8 @@ VERBOSE: True
 
 MODEL:
   MODE: 'Debanding'
-  SESSION: 'MPRNet'
+  SESSION: 'UNet'
+  VARIANT: 'UNet-32'
 
 # Optimization arguments.
 OPTIM:
@@ -27,4 +28,4 @@ TRAINING:
   TRAIN_DIR: './datasets/VP9BandingDataset/train' # path to training data
   VAL_DIR: './datasets/VP9BandingDataset/val'    # path to validation data
   SAVE_DIR: './checkpoints'     # path to save models and images
-  # SAVE_IMAGES: False
+  SAVE_IMAGES: True
