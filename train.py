@@ -85,9 +85,13 @@ if len(device_ids)>1:
     model_restoration = nn.DataParallel(model_restoration, device_ids = device_ids)
 
 ######### Loss ###########
-criterion = torch.nn.L1Loss()
+# criterion = torch.nn.L1Loss()
 # criterion_char = losses.CharbonnierLoss()
 # criterion_edge = losses.EdgeLoss()
+criterion = torch.nn.L1Loss()
+# criterion_band = losses.BandingLoss(use_cuda=True)
+# criterion_canny = losses.CannyFilter(use_cuda=True)
+criterion_fft = losses.FrequencyLoss()
 
 ######### DataLoaders ###########
 train_dataset = get_training_data(train_dir, {'patch_size':opt.TRAINING.TRAIN_PS})
@@ -118,13 +122,18 @@ for epoch in range(start_epoch, opt.OPTIM.NUM_EPOCHS + 1):
         input_ = data[1].cuda()
 
         restored = model_restoration(input_)
+
  
         # Compute loss at each stage
-        loss = criterion(restored, target)
+        loss1 = criterion(restored, target)
+        loss2 = criterion_fft(restored, target)
         # loss_char = np.sum([criterion_char(restored[j],target) for j in range(len(restored))])
         # loss_edge = np.sum([criterion_edge(restored[j],target) for j in range(len(restored))])
         # loss = (loss_char) + (0.05*loss_edge)
-       
+        print(f"L1 loss: {loss1}, FreqLoss: {loss2}")
+        loss = loss1 + (0.1*loss2)
+
+        print(f"loss: {loss}")
         loss.backward()
         optimizer.step()
         epoch_loss +=loss.item()

@@ -170,4 +170,13 @@ python test.py --input_dir datasets/ --model_file "UNet.py" --model_variant "UNe
 
 ### 1.15
 
-* Extract BBAND maps
+* Extract BBAND maps. However, I think that using BBAND map as loss may have no impact...Since our reference image still have *banding*, it may learn to retrieve similar bandings.
+* Implemented a simplified BBAND loss `CannyEdgePytorch/net_bband.py` modified from CannyEdge. Run demo:
+```
+$ python3 bband.py
+```
+* Trained on L1+BandingLoss:
+
+```
+python train.py
+```
