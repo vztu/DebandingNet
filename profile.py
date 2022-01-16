@@ -22,10 +22,22 @@ from ptflops import get_model_complexity_info
 
 
 # for model_name in model_names:
+# task = 'Debanding'
+# model_name = 'UNet'
+# load_file = run_path("UNet.py")
+# model = load_file['model']('UNet-96')
+# macs, params = get_model_complexity_info(
+#     model, (3, 256, 256), as_strings=True,
+#     print_per_layer_stat=True, verbose=True)
+# print(f"{model_name}")
+# print('{:<30}  {:<8}'.format('Computational complexity: ', macs))
+# print('{:<30}  {:<8}'.format('Number of parameters: ', params))
+
+# for model_name in model_names:
 task = 'Debanding'
-model_name = 'UNet'
-load_file = run_path("UNet.py")
-model = load_file['model']('UNet-96')
+model_name = 'MPRNet'
+load_file = run_path("MPRNet.py")
+model = load_file['MPRNet']()
 macs, params = get_model_complexity_info(
     model, (3, 256, 256), as_strings=True,
     print_per_layer_stat=True, verbose=True)

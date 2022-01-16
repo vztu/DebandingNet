@@ -51,6 +51,11 @@ Move the dataset `data/frames` and rename as `HINet/datasets/VP9BandingDataset`.
 
 ## Prepare training 
 
+* Install yacs: `conda install -c conda-forge yacs`
+* Install natsort: `pip install natsort`
+* Install skimage: `pip install scikit-image`
+* Install tqdm: `pip install tqdm`
+* Install cv2: `conda install -c conda-forge opencv`
 * Install warmup scheduler 
 
 ```
@@ -83,6 +88,19 @@ python test.py --input_dir datasets/ --result_dir results/MPRNet_epochs100_100ep
 
 ## Experiment logs
 
+### 12.5
+
+* Summary:
+
+| UNet    | Epochs | Train size  | Loss |  PSNR  |  SSIM  | Pars | MACs |
+|---|---|---|---|---|---|---|---|
+| UNet32  | 300 | 128x128  |  l1  | 37.33  | 0.9439  | 1.82M | 19.84G |
+| UNet32  | 300 | 256x256  |  l1  | 37.50  | 0.9459  | 1.82M | 19.84G |
+| UNet32  | 300 | 256x256  |  l2  | 37.48  | 0.9456  | 1.82M | 19.84G |
+| UNet64  | 300 | 128x128  |  l1  | 37.49  | 0.9456  | 7.27M | 79.01G |
+| UNet64  | 300 | 256x256  |  l1  | 37.60  | 0.9467  | 7.27M | 79.01G |
+| UNet64  | 300 | 256x256  |  l2  | 37.60  | 0.9468  | 7.27M | 79.01G |
+
 ### 11.10
 
 * Trained the `UNet-32` model (1.82M, 19.84GMAC) with 100 epochs.
@@ -94,3 +112,62 @@ python test.py --input_dir datasets/ --model_file "UNet.py" --model_variant "UNe
 ```
 
 * Results: `(PSNR, SSIM) = ()`
+
+### 12.2
+
+* Trained (on Odin) the `UNet-32` model (1.82M, 19.84 GMAC) with 300 epochs on 256x256 using L1Loss().
+
+* Test:
+
+```
+python test.py --input_dir datasets/ --model_file "UNet.py" --model_variant "UNet-32" --result_dir results/UNet32_epochs300_l1loss_train256x256/ --dataset VP9BandingDataset --weights checkpoints/Debanding/models/UNet32_epochs300_l1loss_train256x256/model_latest.pth --gpus='0,1' --crop_size=0
+```
+
+* Results on full-res: `(PSNR, SSIM) = (37.50, 0.9459)`
+
+### 12.4
+
+* Trained (on Odin) the `UNet-32` model (1.82M, 19.84 GMAC) with 300 epochs on 256x256 using MSELoss().
+
+```
+python test.py --input_dir datasets/ --model_file "UNet.py" --model_variant "UNet-32" --result_dir results/UNet32_epochs300_l2loss_train256x256/ --dataset VP9BandingDataset --weights checkpoints/Debanding/models/UNet32_epochs300_l2loss_train256x256/model_latest.pth --gpus='0,1' --crop_size=0
+```
+
+* Results on full-res: `(PSNR, SSIM) = (36.67, 0.9413)`
+
+
+
+### 12.4
+
+* Trained (on Exx-1) the `UNet-64` model (M, GMAC) with 300 epochs on 256x256 using L1Loss().
+
+```
+python test.py --input_dir datasets/ --model_file "UNet.py" --model_variant "UNet-64" --result_dir results/UNet64_epochs300_l1loss_train256x256/ --dataset VP9BandingDataset --weights checkpoints/Debanding/models/UNet64_epochs300_l1loss_train256x256/model_latest.pth --gpus='0,1' --crop_size=0
+```
+
+
+### 12.4
+
+* Trained (on Odin) the `UNet-64` model (M, GMAC) with 300 epochs on 256x256 using MSELoss().
+
+* Test:
+
+```
+python test.py --input_dir datasets/ --model_file "UNet.py" --model_variant "UNet-64" --result_dir results/UNet64_epochs300_l2loss_train256x256/ --dataset VP9BandingDataset --weights checkpoints/Debanding/models/UNet64_epochs300_l2loss_train256x256/model_latest.pth --gpus='0,1' --crop_size=0
+```
+
+* Results on full-res: `(PSNR, SSIM) = (36.67, 0.9413)`
+
+### 12.5
+
+* Trained (on Odin) the `UNet-32` model (M, GMAC) with 300 epochs on 128x128 using L1Loss().
+            
+* Test:
+
+```
+python test.py --input_dir datasets/ --model_file "UNet.py" --model_variant "UNet-32" --result_dir results/UNet32_epochs300_l1loss_train128x128/ --dataset VP9BandingDataset --weights checkpoints/Debanding/models/UNet32_epochs300_l1loss_train128x128/model_latest.pth --gpus='0,1' --crop_size=0
+```
+
+### 1.15
+
+* Extract BBAND maps

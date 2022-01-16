@@ -3,6 +3,7 @@
 *.webm
 *.zip
 *.png
+*.mat
 data_analysis/tmp
 checkpoints/**
 data/**

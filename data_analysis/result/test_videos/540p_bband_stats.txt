@@ -1,0 +1,1 @@
+../data/test_videos/540p/Meridian_UHD4k5994_HDR_P3PQ_03m11.2s_6.8s_540p_vp9_crf23.webm,0.757711

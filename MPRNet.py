@@ -236,7 +236,7 @@ class ORSNet(nn.Module):
 
 ##########################################################################
 class MPRNet(nn.Module):
-    def __init__(self, in_c=3, out_c=3, n_feat=32, scale_unetfeats=48, scale_orsnetfeats=32, num_cab=8, kernel_size=3, reduction=4, bias=True):
+    def __init__(self, in_c=3, out_c=3, n_feat=32, scale_unetfeats=32, scale_orsnetfeats=32, num_cab=8, kernel_size=3, reduction=4, bias=True):
         super(MPRNet, self).__init__()
 
         act=nn.PReLU()
@@ -345,3 +345,23 @@ class MPRNet(nn.Module):
         stage3_img = self.tail(x3_cat)
 
         return [stage3_img+x3_img, stage2_img, stage1_img]
+
+
+def model(model_name):
+    class ModelError(Exception):
+        def __init__(self, msg):
+            self.msg = msg
+
+        def __str__(self):
+            return self.msg
+
+    if model_name == "MPRNet-32":
+        # 1.82M, 19.84 GMAC
+        return MPRNet(n_feat=32, scale_unetfeats=32, scale_orsnetfeats=32, num_cab=8)
+    elif model_name == "MPRNet-64":
+        # 7.27M, 79.01 GMAC
+        return MPRNet(n_feat=64, scale_unetfeats=64, scale_orsnetfeats=64, num_cab=8)
+    elif model_name == "MPRNet-96":
+        # 30.28M, 308.09 GMAC
+        return MPRNet(n_feat=96, scale_unetfeats=96, scale_orsnetfeats=96, num_cab=8)
+    raise ModelError('Wrong Model!\nYou should choose MIMO-UNetPlus or MIMO-UNet.')
