@@ -4,11 +4,14 @@
 *.zip
 *.png
 *.mat
+data_analysis/**
+data_preparation/**
 data_analysis/tmp
 checkpoints/**
 data/**
 datasets/**
 results/**
+README_internal.md
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
