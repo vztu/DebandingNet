@@ -34,3 +34,7 @@ python3 train.py
 ```
 python test.py --input_dir datasets/ --model_file "UNet.py" --model_variant "UNet-32" --result_dir results/test_figure5_AdaDeband_UNet/ --dataset FFMPEG --weights checkpoints/Debanding/models/UNet32_epochs300_l1loss_train256x256/model_latest.pth --gpus='0,1' --crop_size=0
 ```
+
+## Acknowledgment
+
+This code is based on [MPRNet](https://github.com/swz30/MPRNet)
